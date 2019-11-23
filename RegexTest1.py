@@ -1,4 +1,4 @@
-import re
+import re, pyperclip
 
 # 创建正则表达式 + 分组
 phoneNum = re.compile(r'(\(\d\d\d\))-(\d\d\d-\d\d\d\d)')
@@ -64,3 +64,13 @@ print(xmasRegex.findall('12 drummers, 11 pipers, 10 lords, 9 ladies, 8 maids, 7s
 # 自定义字符分类
 consonantRegex = re.compile(r'[^aeiouAEIOU]')
 print(consonantRegex.findall('RoboCop eats baby food. BABY FOOD.'))
+
+phoneRegex = re.compile(r'''(
+    (\d{3}|\(\d{3}\))?                  # area code，带括号或者不带
+    (\s|-|\.)?                      # separator，空白符号/-/.
+    (\d{3})                         # first 3 digits
+    (\s|-|\.)                       # separator
+    (\d{4})                         # last 4 digits
+    (\s*(ext|x|ext.)\s*(\d{2,5}))?  # extension
+    )''', re.VERBOSE)
+print(phoneRegex.findall('415-863-9900a415-863-9950'))
